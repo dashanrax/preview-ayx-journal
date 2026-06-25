@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ayx · 日常查询与对照工具</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", "Helvetica Neue", sans-serif;
+      background: #f9f6f1;
+      color: #2c2c2c;
+      line-height: 1.7;
+      padding: 0 20px;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 0 60px;
+    }
+
+    /* 顶部导航 */
+    .top-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px 0 18px;
+      border-bottom: 1px solid #e5ddd6;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .nav-brand {
+      font-weight: 550;
+      font-size: 1.3rem;
+      letter-spacing: 0.5px;
+      color: #3b322a;
+    }
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+      font-size: 0.95rem;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: #5a4e44;
+      transition: color 0.2s;
+      border-bottom: 1px solid transparent;
+    }
+    .nav-links a:hover {
+      color: #1b1b1b;
+      border-bottom-color: #b3a293;
+    }
+
+    /* hero 区域 */
+    .hero {
+      margin: 40px 0 50px;
+      max-width: 780px;
+    }
+    .hero h1 {
+      font-size: 2.2rem;
+      font-weight: 550;
+      letter-spacing: -0.3px;
+      color: #2f2822;
+      margin-bottom: 16px;
+      line-height: 1.3;
+    }
+    .hero p {
+      font-size: 1.05rem;
+      color: #4d423a;
+      margin-bottom: 12px;
+    }
+
+    /* 引用 / 提示框 */
+    .insight-box {
+      background: #f0eae2;
+      border-left: 5px solid #b7a89b;
+      padding: 18px 24px;
+      margin: 30px 0 36px;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.98rem;
+      color: #3e352e;
+    }
+    .insight-box strong {
+      font-weight: 550;
+      color: #2f231c;
+    }
+
+    /* 场景卡片（三个） */
+    .scenes {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin: 40px 0 50px;
+    }
+    .scene-card {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 28px 22px 26px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03), 0 6px 16px rgba(0,0,0,0.02);
+      border: 1px solid #ebe4dc;
+      transition: box-shadow 0.2s;
+    }
+    .scene-card:hover {
+      box-shadow: 0 6px 18px rgba(70,50,30,0.06);
+    }
+    .scene-card h3 {
+      font-size: 1.18rem;
+      font-weight: 520;
+      margin-bottom: 10px;
+      color: #332b25;
+      letter-spacing: 0.2px;
+    }
+    .scene-card p {
+      font-size: 0.95rem;
+      color: #544a41;
+      margin-bottom: 4px;
+    }
+    .scene-card .tag {
+      display: inline-block;
+      margin-top: 14px;
+      font-size: 0.8rem;
+      color: #8a7b6e;
+      background: #f3ede6;
+      padding: 2px 14px;
+      border-radius: 20px;
+      letter-spacing: 0.3px;
+    }
+
+    /* 常见说明 / FAQ 摘要 */
+    .faq-section {
+      margin: 10px 0 30px;
+      border-top: 1px solid #e5ddd6;
+      padding-top: 32px;
+    }
+    .faq-section h2 {
+      font-size: 1.5rem;
+      font-weight: 520;
+      margin-bottom: 20px;
+      color: #2f2822;
+    }
+    .faq-item {
+      margin-bottom: 18px;
+    }
+    .faq-item summary {
+      font-weight: 500;
+      cursor: default;
+      color: #3b322a;
+      margin-bottom: 4px;
+      font-size: 1rem;
+    }
+    .faq-item p {
+      font-size: 0.95rem;
+      color: #554a41;
+      padding-left: 12px;
+      border-left: 2px solid #dbd0c6;
+      margin: 6px 0 0 0;
+    }
+
+    /* 链接标记 */
+    .inline-link {
+      color: #5f4c3b;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-color: #cbbeb2;
+      font-weight: 450;
+      transition: color 0.15s;
+    }
+    .inline-link:hover {
+      color: #1f1a15;
+      text-decoration-color: #7d6b5b;
+    }
+
+    /* 响应式 */
+    @media (max-width: 720px) {
+      .hero h1 { font-size: 1.7rem; }
+      .scenes { grid-template-columns: 1fr; gap: 18px; }
+      .top-nav { flex-direction: column; align-items: flex-start; }
+      .nav-links { flex-wrap: wrap; gap: 18px 24px; margin-top: 4px; }
+    }
+    @media (max-width: 460px) {
+      body { padding: 0 14px; }
+      .insight-box { padding: 14px 16px; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- 顶部导航 -->
+  <header class="top-nav">
+    <div class="nav-brand">ayx · 对照</div>
+    <ul class="nav-links">
+      <li><a href="#scenes">场景</a></li>
+      <li><a href="#faq">说明</a></li>
+      <li><a href="https://preview-ayx.com.cn" class="inline-link">ayx</a></li>
+    </ul>
+  </header>
+
+  <!-- hero -->
+  <div class="hero">
+    <h1>日常查询 · 对照检索 · 延伸阅读</h1>
+    <p>从零散信息到结构化对照，<a href="https://preview-ayx.com.cn" class="inline-link">ayx</a> 提供轻量的查询框架，用于快速定位、交叉比较和内容扩展。无论是数据核对、术语对比还是多源整合，都无需反复切换页面。</p>
+    <p>基于单一入口的对照逻辑，减少上下文丢失，让信息验证更直接。</p>
+  </div>
+
+  <!-- 引用块 / 提示 -->
+  <div class="insight-box">
+    <strong>使用思路</strong> · 打开 <a href="https://preview-ayx.com.cn" class="inline-link">ayx</a> 后，将待比较的关键词或条目放入对照区，系统自动匹配候选内容。可同时参考多组结果，完成快速筛选或延伸阅读，适合研究、写作、翻译等需要频繁查证的场景。
+  </div>
+
+  <!-- 三个场景模块 -->
+  <div class="scenes" id="scenes">
+    <div class="scene-card">
+      <h3>术语对照</h3>
+      <p>多语言、多来源术语并行显示，消除歧义。同一概念在不同体系中的表述可并排比较，减少理解断层。</p>
+      <span class="tag">翻译 · 技术写作</span>
+    </div>
+    <div class="scene-card">
+      <h3>数据核验</h3>
+      <p>将待确认的数值或条目输入对照区域，快速获得多个参考源的结果，辅助交叉验证。</p>
+      <span class="tag">调研 · 数据分析</span>
+    </div>
+    <div class="scene-card">
+      <h3>延伸检索</h3>
+      <p>基于当前查询内容自动推荐相关条目或扩展方向，适合需要拓宽信息边界的阅读场景。</p>
+      <span class="tag">学习 · 内容整理</span>
+    </div>
+  </div>
+
+  <!-- FAQ 摘要 (常见说明) -->
+  <div class="faq-section" id="faq">
+    <h2>常见说明</h2>
+
+    <div class="faq-item">
+      <summary>对照结果来自哪些范围</summary>
+      <p>结果基于已有索引和实时组合，覆盖常用领域的基础条目。范围会持续补充，但并非全量数据库。</p>
+    </div>
+    <div class="faq-item">
+      <summary>是否支持自定义对照组</summary>
+      <p>当前版本支持手动输入或粘贴待比较内容，系统自动识别并生成对照面板。暂不支持保存私有对照集。</p>
+    </div>
+    <div class="faq-item">
+      <summary>信息准确度与引用</summary>
+      <p>对照内容经过结构化处理，但建议对关键数据进行二次确认。平台不构成最终决策依据。</p>
+    </div>
+    <div class="faq-item">
+      <summary>移动端适配情况</summary>
+      <p>支持手机浏览器使用，对照区域自动调整为纵向布局，保留核心功能。</p>
+    </div>
+  </div>
+
+  <!-- 底部一句（非强制，但自然嵌入链接） -->
+  <div style="margin-top: 40px; font-size: 0.9rem; color: #776b61; border-top: 1px solid #ede7e0; padding-top: 24px; text-align: left;">
+    如需使用，可直接前往 <a href="https://preview-ayx.com.cn" class="inline-link">ayx</a> ，无需安装或注册。
+  </div>
+
+</div>
+</body>
+</html>
